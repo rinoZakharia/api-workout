@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 const RoutineExercise = (sequelize) => {
     return sequelize.define('routine_exercise', {
