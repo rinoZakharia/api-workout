@@ -1,24 +1,26 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-const User = (sequelize) => {
-    return sequelize.define('User', {
+const Exercise = (sequelize) => {
+    return sequelize.define('exercise', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        username: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
-        email: {
+        equipment: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        image: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
-        password: {
-            type: DataTypes.STRING,
+        how: {
+            type: DataTypes.TEXT,
             allowNull: false,
         },
     }, {
@@ -26,4 +28,4 @@ const User = (sequelize) => {
     });
 };
 
-module.exports = User;
+module.exports = Exercise;
