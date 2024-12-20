@@ -35,6 +35,14 @@ const RoutineExercise = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
+        weight: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
+        note: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
     }, {
         timestamps: true,
     });

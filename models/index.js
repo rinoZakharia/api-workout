@@ -69,7 +69,7 @@ const initializeDatabase = async () => {
         console.log('Database connection established successfully.');
 
         // **Important:** Use `alter: true` for development. In production, use migrations.
-        await sequelize.sync({ alter: true });
+        await sequelize.sync({ migrations: true });
         // await sequelize.sync({ force: true });
         console.log('All models were synchronized successfully!');
     } catch (error) {

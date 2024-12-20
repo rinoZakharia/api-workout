@@ -24,6 +24,11 @@ const User = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        token: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: true,
+        },
     }, {
         timestamps: true,
     });
