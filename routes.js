@@ -310,7 +310,6 @@ router.get('/exercise', exercise.getExercise);
  *                   type: string
  *                   example: "Internal server error"
  */
-router.put('/edit-profile', user.editProfile);
 
 
 
