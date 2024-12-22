@@ -32,22 +32,6 @@ Routine.belongsTo(User, {
     as: 'user',
 });
 
-// Routine Model
-Routine.belongsToMany(Exercise, {
-    through: 'routine_exercises',
-    foreignKey: 'routine_id',
-    otherKey: 'exercise_id',
-    as: 'exercises',
-});
-
-// Exercise Model
-Exercise.belongsToMany(Routine, {
-    through: 'routine_exercises',
-    foreignKey: 'exercise_id',
-    otherKey: 'routine_id',
-    as: 'routines',
-});
-
 // RoutineExercise Model
 RoutineExercise.belongsTo(Routine, {
     foreignKey: 'routine_id',

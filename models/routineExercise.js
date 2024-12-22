@@ -28,15 +28,15 @@ const RoutineExercise = (sequelize) => {
             onDelete: 'CASCADE',
         },
         set: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         repetition: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         weight: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         note: {
