@@ -4,15 +4,17 @@ const { Exercise } = require("../models");
 const getExercise = async (req, res, next) => {
     const body = req.body;
     try {
-        const data = await Exercise.findAll({
-            where: {
+        let queryOptions = {};
+        if (body.search && body.search.trim() !== '') {
+            queryOptions.where = {
                 [Op.or]: [
                     { name: { [Op.like]: `%${body.search}%` } },
                     { equipment: { [Op.like]: `%${body.search}%` } },
                     { muscle: { [Op.like]: `%${body.search}%` } }
                 ]
-            }
-        });
+            };
+        }
+        const data = await Exercise.findAll(queryOptions);
         const dataExer = JSON.parse(JSON.stringify(data, null, 2));
         res.status(200);
         res.locals.rc = "200";
