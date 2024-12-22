@@ -5,9 +5,13 @@ const routes = require('./routes');
 const responseHandler = require("./middleware/responseHandler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const { swaggerSpec, swaggerUi } = require('./swagger');
 const app = express();
 
 app.use(cors());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    customSiteTitle: 'Workout API Documentation',
+}));
 app.all("*", (req, res, next) => {
     res.status(400);
     res.locals.rc = "400";

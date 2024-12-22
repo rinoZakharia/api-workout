@@ -28,4 +28,214 @@ router.post('/delete-routine-exercise', routineExer.destroy);
 
 // Exercise
 router.get('/exercise', exercise.getExercise);
+
+// Swagger
+// User
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Register a new user
+ *     description: Endpoint to register a new user with a username, email, and password.
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: The user's username.
+ *                 example: "john_doe"
+ *               email:
+ *                 type: string
+ *                 description: The user's email address.
+ *                 example: "john@example.com"
+ *               password:
+ *                 type: string
+ *                 description: The user's password.
+ *                 example: "password123"
+ *     responses:
+ *       200:
+ *         description: Successfully registered the user.
+ *       400:
+ *         description: Bad request, invalid data or email/username already exists.
+ *       500:
+ *         description: Internal server error.
+ */
+
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Login a user
+ *     description: Endpoint to authenticate a user by email and password, returning a token if successful.
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The user's email address.
+ *                 example: "john@example.com"
+ *               password:
+ *                 type: string
+ *                 description: The user's password.
+ *                 example: "password123"
+ *     responses:
+ *       200:
+ *         description: Login successful, returns user data with token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: The generated token for the user.
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       400:
+ *         description: Invalid email or password.
+ *       404:
+ *         description: User not found or password mismatch.
+ *       500:
+ *         description: Internal server error.
+ */
+
+/**
+ * @swagger
+ * /logout:
+ *   post:
+ *     summary: Logout a user
+ *     description: Endpoint to log the user out by invalidating the user's token.
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userid:
+ *                 type: integer
+ *                 description: The user's unique ID.
+ *                 example: 1
+ *     responses:
+ *       '200':
+ *         description: Successfully logged out, token invalidated.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 rc:
+ *                   type: string
+ *                   description: Response code.
+ *                   example: "200"
+ *                 msg:
+ *                   type: string
+ *                   description: Message describing the result of the request.
+ *                   example: "Logout Succeed"
+ *       '400':
+ *         description: Invalid user ID.
+ *       '404':
+ *         description: User not found with the provided ID.
+ *       '500':
+ *         description: Internal server error.
+ */
+
+/**
+ * @swagger
+ * /check-session:
+ *   post:
+ *     summary: Check if the user session is still valid
+ *     description: Endpoint to check if the user is authenticated by verifying the token.
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: The user's authentication token.
+ *                 example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *     responses:
+ *       '200':
+ *         description: User is authenticated, returns user data.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 rc:
+ *                   type: string
+ *                   description: Response code.
+ *                   example: "200"
+ *                 msg:
+ *                   type: string
+ *                   description: Message describing the result of the request.
+ *                   example: "Login Succeed"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       description: The user's ID.
+ *                       example: 1
+ *                     username:
+ *                       type: string
+ *                       description: The user's username.
+ *                       example: "john_doe"
+ *                     email:
+ *                       type: string
+ *                       description: The user's email address.
+ *                       example: "john@example.com"
+ *                     token:
+ *                       type: string
+ *                       description: The user's authentication token.
+ *                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       '401':
+ *         description: User is unauthenticated, invalid token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 rc:
+ *                   type: string
+ *                   description: Response code.
+ *                   example: "401"
+ *                 msg:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "User unauthenticated"
+ *       '500':
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 rc:
+ *                   type: string
+ *                   description: Response code.
+ *                   example: "500"
+ *                 msg:
+ *                   type: string
+ *                   description: Error message.
+ *                   example: "Internal server error"
+ */
+
+
+
+
 module.exports = router;
