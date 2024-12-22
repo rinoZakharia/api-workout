@@ -32,18 +32,31 @@ Routine.belongsTo(User, {
     as: 'user',
 });
 
-// Routine and Exercise (Many-to-Many)
+// Routine Model
 Routine.belongsToMany(Exercise, {
-    through: RoutineExercise,
+    through: 'routine_exercises',
     foreignKey: 'routine_id',
     otherKey: 'exercise_id',
     as: 'exercises',
 });
+
+// Exercise Model
 Exercise.belongsToMany(Routine, {
-    through: RoutineExercise,
+    through: 'routine_exercises',
     foreignKey: 'exercise_id',
     otherKey: 'routine_id',
     as: 'routines',
+});
+
+// RoutineExercise Model
+RoutineExercise.belongsTo(Routine, {
+    foreignKey: 'routine_id',
+    as: 'routine',
+});
+
+RoutineExercise.belongsTo(Exercise, {
+    foreignKey: 'exercise_id',
+    as: 'exercise',
 });
 
 // Function to authenticate and synchronize the database
