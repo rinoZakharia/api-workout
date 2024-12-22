@@ -37,7 +37,7 @@ router.get('/exercise', exercise.getExercise);
  *   post:
  *     summary: Register a new user
  *     description: Endpoint to register a new user with a username, email, and password.
- *     tags: [User]
+ *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
@@ -72,7 +72,7 @@ router.get('/exercise', exercise.getExercise);
  *   post:
  *     summary: Login a user
  *     description: Endpoint to authenticate a user by email and password, returning a token if successful.
- *     tags: [User]
+ *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
@@ -114,7 +114,7 @@ router.get('/exercise', exercise.getExercise);
  *   post:
  *     summary: Logout a user
  *     description: Endpoint to log the user out by invalidating the user's token.
- *     tags: [User]
+ *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
@@ -156,7 +156,7 @@ router.get('/exercise', exercise.getExercise);
  *   post:
  *     summary: Check if the user session is still valid
  *     description: Endpoint to check if the user is authenticated by verifying the token.
- *     tags: [User]
+ *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
@@ -235,6 +235,82 @@ router.get('/exercise', exercise.getExercise);
  *                   example: "Internal server error"
  */
 
+/**
+ * @swagger
+ * /profile:
+ *   post:
+ *     summary: Edit user profile
+ *     description: This endpoint allows a user to update their profile. The request body may include `username`, `email`, and `password`. If a `password` is provided, it will be hashed before updating. The `id` header is required to identify the user to be updated.
+ *     tags: [Users]
+ *     parameters:
+ *       - in: header
+ *         name: id
+ *         required: true
+ *         description: The user ID to identify the user to be updated. This ID is passed in the header.
+ *         schema:
+ *           type: integer
+ *           example: "12"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: The user's username.
+ *                 example: johndoe
+ *               email:
+ *                 type: string
+ *                 description: The user's email address.
+ *                 example: johndoe@example.com
+ *               password:
+ *                 type: string
+ *                 description: The user's new password. If provided, it will be hashed.
+ *                 example: newsecurepassword123
+ *     responses:
+ *       200:
+ *         description: User profile updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 rc:
+ *                   type: string
+ *                   example: "200"
+ *                 msg:
+ *                   type: string
+ *                   example: "Edit Succeed"
+ *       400:
+ *         description: Bad request, validation errors or username/email already exists.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 rc:
+ *                   type: string
+ *                   example: "400"
+ *                 msg:
+ *                   type: string
+ *                   example: "Username or email already exists"
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 rc:
+ *                   type: string
+ *                   example: "500"
+ *                 msg:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
+router.put('/edit-profile', user.editProfile);
 
 
 
