@@ -9,11 +9,8 @@ const getRoutineExec = async (req, res, next) => {
         res.status(200);
         res.locals.rc = "200";
         res.locals.msg = "Succeed";
-        res.locals.data = {
-            id: data.id,
-            name: data.username,
-            exercise: data.exercise
-        }
+        res.locals.data = data
+        
         next();
     } catch (error) {
         console.error(error);
