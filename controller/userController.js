@@ -216,5 +216,38 @@ const editProfile = [
     }
 ];
 
+const getuser = async (req, res, next) => {
+    const id = req.headers["id"];
+    try {
+        const userData = await User.findByPk(id);
+        res.status(200);
+        res.locals.rc = "200";
+        res.locals.msg = "Succeed";
+        res.locals.data = {
+            id: userData.id,
+            username: userData.username,
+            email: userData.email,
+            token: userData.token,
+        }
+        next();
+    } catch (error) {
+        console.error(error);
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            res.status(400);
+            res.locals.rc = "400";
+            res.locals.msg = "Username or email already exists";
+        } else if (error.name === 'SequelizeValidationError') {
+            res.status(400);
+            res.locals.rc = "400";
+            res.locals.msg = error.errors.map(e => e.message).join(', ');
+        } else {
+            res.status(500);
+            res.locals.rc = "500";
+            res.locals.msg = "Internal server error";
+        }
+        next();
+    }
+}
 
-module.exports = { register, login, logout, checkSession, editProfile }
+
+module.exports = { register, login, logout, checkSession, editProfile, getuser }

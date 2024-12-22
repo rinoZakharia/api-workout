@@ -15,6 +15,10 @@ const Exercise = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        muscle: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         image: {
             type: DataTypes.STRING,
             allowNull: false,

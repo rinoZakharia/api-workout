@@ -18,9 +18,7 @@ const sequelize = new Sequelize(
 const User = require('./user')(sequelize, DataTypes);
 const Routine = require('./routine')(sequelize, DataTypes);
 const Exercise = require('./exercise')(sequelize, DataTypes);
-const Muscle = require('./muscle')(sequelize, DataTypes);
 const RoutineExercise = require('./routineExercise')(sequelize, DataTypes);
-const ExerciseMuscle = require('./exerciseMuscle')(sequelize, DataTypes);
 
 // Define Associations
 
@@ -48,20 +46,6 @@ Exercise.belongsToMany(Routine, {
     as: 'routines',
 });
 
-// Exercise and Muscle (Many-to-Many)
-Exercise.belongsToMany(Muscle, {
-    through: ExerciseMuscle,
-    foreignKey: 'exercise_id',
-    otherKey: 'muscle_id',
-    as: 'muscles',
-});
-Muscle.belongsToMany(Exercise, {
-    through: ExerciseMuscle,
-    foreignKey: 'muscle_id',
-    otherKey: 'exercise_id',
-    as: 'exercises',
-});
-
 // Function to authenticate and synchronize the database
 const initializeDatabase = async () => {
     try {
@@ -86,7 +70,5 @@ module.exports = {
     User,
     Routine,
     Exercise,
-    Muscle,
     RoutineExercise,
-    ExerciseMuscle,
 };
