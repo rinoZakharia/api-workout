@@ -185,6 +185,17 @@ const editProfile = [
         }
         const body = req.body;
         let data = {};
+        if (body.password) {
+            try {
+                body.password = await bcrypt.hash(body.password, 10);
+            } catch (error) {
+                console.error("Error hashing password: ", error);
+                res.status(500);
+                res.locals.rc = "500";
+                res.locals.msg = "Internal server error during password hashing";
+                return next();
+            }
+        }
         try {
             for (const key in body) {
                 if (Object.prototype.hasOwnProperty.call(body, key)) {
