@@ -43,11 +43,12 @@ const add = async (req, res, next) => {
         const data = {
             user_id: userId,
             name: body.name
-        }
-        await Routine.create(data);
+        };
+        const routine = await Routine.create(data);
         res.status(200);
         res.locals.rc = "200";
         res.locals.msg = "Succeed create new routine";
+        res.locals.data = routine.id;
         next();
     } catch (error) {
         console.error(error);
@@ -66,7 +67,7 @@ const add = async (req, res, next) => {
         }
         next();
     }
-}
+};
 
 const edit = async (req, res, next) => {
     const body = req.body;
